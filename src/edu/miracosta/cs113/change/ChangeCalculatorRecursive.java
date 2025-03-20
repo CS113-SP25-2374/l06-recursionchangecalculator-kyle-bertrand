@@ -26,7 +26,21 @@ public class ChangeCalculatorRecursive extends ChangeCalculator {
         // TODO:
         // Implement a recursive solution following the given documentation.
         List<String> combinations = new ArrayList<>();
-
+        calculateCombinations(cents, new int[COINS.length],0,combinations);
         return combinations;
+    }
+
+    private static void calculateCombinations(int remainingCents, int[] coinCounts, int coinIndex, List<String> combinations) {
+      if(coinIndex == COINS.length-1) {
+      coinCounts[coinIndex] = remainingCents;
+      combinations.add(combinationToString(coinCounts));
+      return;
+      }
+      int coinValue = COINS[coinIndex];
+      for(int i = 0; i <=remainingCents/coinValue; i++) {
+          coinCounts[coinIndex]=i;
+          calculateCombinations(remainingCents-(i*coinValue), coinCounts, coinIndex+1, combinations);
+
+      }
     }
 }
